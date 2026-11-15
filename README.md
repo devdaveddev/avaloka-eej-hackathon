@@ -10,7 +10,7 @@ Can solar and geomagnetic drivers predict hourly `delta_EEJ` (equatorial electro
 
 No. In both runs Avaloka completed, the drivers did not beat a baseline that only knows the hour of day.
 
-Reading the code Avaloka generated also showed that neither run did exactly what was asked, and that the chat summaries did not say so. Both are reproduced below and reported as issues on the Avaloka repo.
+Reading the code Avaloka generated also showed that neither run did exactly what was asked, and that the chat summaries did not say so. Both are reproduced below and reported as [issue #91](https://github.com/guruvaidev/avaloka/issues/91) on the Avaloka repo, with a proposed fix for the first in [pull request #97](https://github.com/guruvaidev/avaloka/pull/97). The timeout is [issue #92](https://github.com/guruvaidev/avaloka/issues/92).
 
 ## Dataset
 
@@ -95,6 +95,6 @@ The two tree-model figures in run 2 (9.44 and 9.79) are Avaloka's and were not i
 
 1. **Summary does not match code (run 1).** Asked for gradient-boosted trees; the code ran linear regression; the summary said gradient-boosted trees.
 2. **Requested split silently replaced (run 2).** Asked for a 2019–2021 hold-out; the code used a 70/30 row split; the summary did not say so.
-3. **Timeout.** The first training plan was a 30-epoch neural network with batch size 32. It failed with "Script execution timed out after 60 seconds".
+3. **Timeout.** The first training plan (30 epochs, Adam optimizer, batch size 32) was too heavy for the limit. It failed with "Script execution timed out after 60 seconds".
 4. **Dataset became unavailable.** About four hours after upload, the same chat answered every new question with "No datasets available to load", although the dataset was still listed as attached. Re-uploading the file to a new analysis failed twice with "Failed to persist session. Please retry." A planned third question (storm hours versus quiet hours) could not be run.
 5. **Auto Insights** focused on `storm_flag` and the date columns and did not pick out `delta_EEJ` as the quantity of interest.
